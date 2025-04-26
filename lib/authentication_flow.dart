@@ -49,6 +49,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
+                  suffixIcon: Icon(Icons.visibility),
                 ),
                 obscureText: true,
               ),
@@ -65,23 +66,28 @@ class _AuthScreenState extends State<AuthScreen> {
               const SizedBox(height: 10),
               if (showSignIn)
                 Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text('Forget Password?'),
-                  ),
-                ),
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text('Forget Password?',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            )))),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+    backgroundColor: Color(0xff46889A),
+    ),
                   onPressed: () {
                     if (showSignIn) {
                       // Handle sign in
@@ -96,52 +102,50 @@ class _AuthScreenState extends State<AuthScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignUpAdditionalInfoScreen(),
+                          builder: (context) =>
+                              const SignUpAdditionalInfoScreen(),
                         ),
                       );
                     }
                   },
-                  child: Text(showSignIn ? 'Sign in' : 'Sign Up'),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Center(child: Text('or')),
-
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff46889A)
-                  ),
-                  onPressed: () {
-                    // Handle sign in with provider
-                  },
-                  child: Text('Sign ${showSignIn ? 'in' : 'up'} With' , style:
-                  TextStyle(
+                  child: Text(showSignIn ? 'Sign in' : 'Sign Up',style: TextStyle(
                     color: Colors.white
                   ),),
                 ),
               ),
-
+              const SizedBox(height: 20),
+              const Center(child: Text('or')),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                  },
+                  child: Text(
+                    'Sign ${showSignIn ? 'in' : 'up'} With',
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.black,
-                    )
+                  color: Colors.black,
+                )),
+                child: SvgPicture.asset(
+                  "assets/icons/Facebook.svg",
                 ),
-                child: SvgPicture.asset("assets/icons/Facebook.svg",),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.black,
-                    )
-                ),
+                  color: Colors.black,
+                )),
                 child: SvgPicture.asset("assets/icons/google.svg"),
               ),
               const SizedBox(height: 20),

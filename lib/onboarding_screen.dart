@@ -102,7 +102,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   curve: Curves.easeIn,
                 );
               },
-              child: const Text('Next'),
+              child: Text('Next',style: TextStyle(color:
+              Colors.black)),
             ),
           ),
           if (_currentPage > 0)
@@ -116,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     curve: Curves.easeIn,
                   );
                 },
-                child: const Text('Back'),
+                child: const Text('Back',style: TextStyle(color: Colors.black),),
               ),
             ),
         ],
@@ -182,6 +183,23 @@ class OnboardingPage extends StatelessWidget {
           fit:  BoxFit.fill,
         ),
         const SizedBox(height: 40),
+        Visibility(
+          visible: index!=0,
+          child: Align(
+             alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              height:180,
+              decoration: BoxDecoration(
+                color: Color(0xff1f3B43).withOpacity(0.9),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(150),
+                  topLeft: Radius.circular(150),
+                )
+              ),
+            ),
+          ),
+        ),
         Positioned(
           bottom: 100,
           child: Text(
@@ -189,10 +207,11 @@ class OnboardingPage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
+              color: Color(0xffEEF7F9)
             ),
           ),
         ),
-        const Spacer(),
+
       ],
     );
   }
