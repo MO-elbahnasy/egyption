@@ -16,7 +16,7 @@ class ExperienceDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              'assets/experience_detail.jpg',
+              "assets/images/Frame 1.png",
               width: double.infinity,
               height: 250,
               fit: BoxFit.cover,
@@ -134,7 +134,9 @@ class BookingScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Radio(value: 0, groupValue: 0, onChanged: (value) {}),
+                  Radio(
+                    activeColor: Color(0xff46889A),
+                      value: 0, groupValue: 0, onChanged: (value) {}),
                   const Text('Credit Card'),
                 ],
               ),
@@ -174,6 +176,9 @@ class BookingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff46889A),
+                ),
                 onPressed: () {
                   // Handle payment
                   Navigator.push(
@@ -183,7 +188,11 @@ class BookingScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Pay Now'),
+                child: const Text('Pay Now',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                ),
               ),
             ],
           ),

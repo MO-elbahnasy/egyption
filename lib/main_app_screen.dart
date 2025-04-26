@@ -43,18 +43,23 @@ class _MainAppScreenState extends State<MainAppScreen> {
         },
         items: const [
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff46889A),
             icon: Icon(Icons.explore),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff46889A),
             icon: Icon(Icons.bookmark),
             label: 'Bookings',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff46889A),
             icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff46889A),
+
             icon: Icon(Icons.person),
             label: 'Profile',
           ),

@@ -16,7 +16,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, String>> onboardingPages = [
     {
       'title': '',
-      'image': 'assets/images/egypt_logo.png',
+      'image': 'assets/images/egypt_logo (1).png',
     },
     {
       'title': 'Local Experts',
