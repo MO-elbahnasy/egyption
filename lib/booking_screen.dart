@@ -1,3 +1,4 @@
+import 'package:egyptifi/feedback_screen.dart';
 import 'package:egyptifi/main_app_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -246,6 +247,20 @@ class BookingConfirmationScreen extends StatelessWidget {
                 },
                 child: const Text('Back to Home'),
               ),
+              // داخل الـ build method بعد زر Done
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FeedbackScreen(
+                        bookingId: 'unique_booking_id_here',
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Rate Your Experience'),
+              )
             ],
           ),
         ),

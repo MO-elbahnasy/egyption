@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(const EgyptifyApp());
+
 }
 
 class EgyptifyApp extends StatelessWidget {

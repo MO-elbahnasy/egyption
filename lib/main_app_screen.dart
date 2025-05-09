@@ -1,6 +1,6 @@
 import 'package:egyptifi/booking_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -13,10 +13,11 @@ class _MainAppScreenState extends State<MainAppScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const ExploreScreen(),
+    const HomeScreen(),
     const BookingsScreen(),
     const FavoritesScreen(),
     const ProfileScreen(),
+    const ExperienceScreen(),
   ];
 
   @override
@@ -41,28 +42,40 @@ class _MainAppScreenState extends State<MainAppScreen> {
             _currentIndex = index;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             backgroundColor: Color(0xff46889A),
-            icon: Icon(Icons.explore),
-            label: 'Explore',
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
+
           BottomNavigationBarItem(
-            backgroundColor: Color(0xff46889A),
-            icon: Icon(Icons.bookmark),
+            backgroundColor: const Color(0xff46889A),
+            icon: SvgPicture.asset('assets/icons/booking.svg',
+
+            ),
             label: 'Bookings',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             backgroundColor: Color(0xff46889A),
             icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
-          BottomNavigationBarItem(
+
+
+          const BottomNavigationBarItem(
             backgroundColor: Color(0xff46889A),
 
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+
+          const BottomNavigationBarItem(
+            backgroundColor: Color(0xff46889A),
+            icon: Icon(Icons.explicit),
+            label: 'Experiences',
+          ),
+
         ],
       ),
     );
@@ -245,6 +258,7 @@ class ExperienceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       margin: const EdgeInsets.all(8),
       child: Column(
@@ -256,6 +270,7 @@ class ExperienceCard extends StatelessWidget {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
+
           Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -309,19 +324,19 @@ class ExperienceCard extends StatelessWidget {
   }
 }
 
-class BookingsScreen extends StatelessWidget {
-  const BookingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Bookings',
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
-    );
-  }
-}
+// class BookingsScreen extends StatelessWidget {
+//   const BookingsScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Text(
+//         'Bookings',
+//         style: Theme.of(context).textTheme.headlineMedium,
+//       ),
+//     );
+//   }
+// }
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -337,6 +352,46 @@ class FavoritesScreen extends StatelessWidget {
   }
 }
 
+class BookingsScreen extends StatelessWidget {
+  const BookingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Bookings',
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
+    );
+  }
+}
+
+// class ProfileScreen extends StatelessWidget {
+//   const ProfileScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Text(
+//         'Profile',
+//         style: Theme.of(context).textTheme.headlineMedium,
+//       ),
+//     );
+//   }
+// }
+class ExperienceScreen extends StatelessWidget {
+  const ExperienceScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Experiences',
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
+    );
+  }
+}
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -345,6 +400,20 @@ class ProfileScreen extends StatelessWidget {
     return Center(
       child: Text(
         'Profile',
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
+    );
+  }
+}
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Center(
+      child: Text(
+        'Home',
         style: Theme.of(context).textTheme.headlineMedium,
       ),
     );

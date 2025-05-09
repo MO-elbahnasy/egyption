@@ -73,5 +73,6 @@ class _SignUpAdditionalInfoScreenState extends State<SignUpAdditionalInfoScreen>
         ),
       ),
     );
+
   }
 }
