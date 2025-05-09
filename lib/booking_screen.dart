@@ -61,7 +61,7 @@ class ExperienceDetailScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BookingScreen(),
+                          builder: (context) => const BookingDetailsScreen(),
                         ),
                       );
                     },
@@ -91,8 +91,8 @@ class ExperienceDetailScreen extends StatelessWidget {
   }
 }
 
-class BookingScreen extends StatelessWidget {
-  const BookingScreen({super.key});
+class BookingDetailsScreen extends StatelessWidget {
+  const BookingDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -263,6 +263,183 @@ class BookingConfirmationScreen extends StatelessWidget {
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BookingCard extends StatelessWidget {
+  final String imagePath;
+  final String status;
+  final Color statusColor;
+  final String title;
+  final String price;
+  final String? subtitle;
+  final String buttonText;
+  final Color buttonColor;
+  final VoidCallback onButtonPressed;
+
+  const BookingCard({
+    super.key,
+    required this.imagePath,
+    required this.status,
+    required this.statusColor,
+    required this.title,
+    required this.price,
+    this.subtitle,
+    required this.buttonText,
+    required this.buttonColor,
+    required this.onButtonPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      elevation: 4,
+      margin: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(18),
+              topRight: Radius.circular(18),
+            ),
+            child: Image.asset(
+              imagePath,
+              height: 120,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Status badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    status,
+                    style: TextStyle(
+                      color: statusColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  price,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                if (subtitle != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle!,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: buttonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    onPressed: onButtonPressed,
+                    child: Text(
+                      buttonText,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BookingScreen extends StatelessWidget {
+  const BookingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Booking'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Done card
+            SizedBox(
+              width: 220,
+              child: BookingCard(
+                imagePath: 'assets/images/Frame 96.png',
+                status: 'Done',
+                statusColor: const Color(0xFF7ACFC6),
+                title: 'Explore the citadel of Salah of Al-Din Al-Ayoubi',
+                price: '1899 E.P. for Person',
+                buttonText: 'Rate',
+                buttonColor: const Color(0xFF7ACFC6),
+                onButtonPressed: () {
+                  // Handle Rate
+                },
+              ),
+            ),
+            // In progress card
+            SizedBox(
+              width: 220,
+              child: BookingCard(
+                imagePath: 'assets/images/Frame 96.png',
+                status: 'In progress',
+                statusColor: const Color(0xFF46889A),
+                title: 'Explore the citadel of Salah of Al-Din Al-Ayoubi',
+                price: '1899 E.P. for Person',
+                subtitle: 'Free Cancelation until 6:00 PM',
+                buttonText: 'Cancel',
+                buttonColor: Colors.redAccent,
+                onButtonPressed: () {
+                  // Handle Cancel
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

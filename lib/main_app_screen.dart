@@ -1,4 +1,6 @@
 import 'package:egyptifi/booking_screen.dart';
+import 'package:egyptifi/creation_flow.dart';
+import 'package:egyptifi/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,11 +15,11 @@ class _MainAppScreenState extends State<MainAppScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
-    const BookingsScreen(),
-    const FavoritesScreen(),
-    const ProfileScreen(),
-    const ExperienceScreen(),
+    const ExploreScreen(),
+   const BookingScreen(),
+   const FavoritesScreen(),
+   const ProfileScreen(),
+    const CreateExperienceFlow(),
   ];
 
   @override
@@ -324,61 +326,46 @@ class ExperienceCard extends StatelessWidget {
   }
 }
 
-// class BookingsScreen extends StatelessWidget {
-//   const BookingsScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text(
-//         'Bookings',
-//         style: Theme.of(context).textTheme.headlineMedium,
-//       ),
-//     );
-//   }
-// }
-
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Favorites',
-        style: Theme.of(context).textTheme.headlineMedium,
+    // Example favorite experiences data
+    final favorites = [
+      const ExperienceCard(
+        title: 'Explore the citadel of Salah of Al-Din Al-Ayoubi',
+        subtitle: 'Discover the Heart of Egypt Through Culture, Crafts, and Authentic Flavors',
+        price: '1899 E.P. for Person',
+        rating: '4.5 (268)',
       ),
+      const ExperienceCard(
+        title: 'Nile Dinner Cruise',
+        subtitle: 'Enjoy dinner and live entertainment on the Nile',
+        price: '1200 E.P. for Person',
+        rating: '4.7 (154)',
+      ),
+      const ExperienceCard(
+        title: 'Giza Pyramids Tour',
+        subtitle: 'Guided tour of the Pyramids and Sphinx',
+        price: '2100 E.P. for Person',
+        rating: '4.8 (320)',
+      ),
+      const ExperienceCard(
+        title: 'Khan El Khalili Bazaar',
+        subtitle: 'Shopping and local crafts in Cairo',
+        price: '500 E.P. for Person',
+        rating: '4.3 (98)',
+      ),
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: favorites.length,
+      itemBuilder: (context, index) => favorites[index],
     );
   }
 }
-
-class BookingsScreen extends StatelessWidget {
-  const BookingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Bookings',
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
-    );
-  }
-}
-
-// class ProfileScreen extends StatelessWidget {
-//   const ProfileScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text(
-//         'Profile',
-//         style: Theme.of(context).textTheme.headlineMedium,
-//       ),
-//     );
-//   }
-// }
 class ExperienceScreen extends StatelessWidget {
   const ExperienceScreen({super.key});
 
@@ -387,33 +374,6 @@ class ExperienceScreen extends StatelessWidget {
     return Center(
       child: Text(
         'Experiences',
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
-    );
-  }
-}
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Profile',
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
-    );
-  }
-}
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Center(
-      child: Text(
-        'Home',
         style: Theme.of(context).textTheme.headlineMedium,
       ),
     );
