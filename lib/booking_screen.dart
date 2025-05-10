@@ -300,6 +300,7 @@ class BookingCard extends StatelessWidget {
       elevation: 4,
       margin: const EdgeInsets.all(8),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
@@ -403,10 +404,10 @@ class BookingScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+        scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Done card
             SizedBox(
               width: 220,
               child: BookingCard(
@@ -418,14 +419,17 @@ class BookingScreen extends StatelessWidget {
                 buttonText: 'Rate',
                 buttonColor: const Color(0xFF7ACFC6),
                 onButtonPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return FeedbackScreen(bookingId: '32432423',);
+                  },));
                   // Handle Rate
                 },
               ),
             ),
-            // In progress card
             SizedBox(
               width: 220,
               child: BookingCard(
+
                 imagePath: 'assets/images/Frame 96.png',
                 status: 'In progress',
                 statusColor: const Color(0xFF46889A),

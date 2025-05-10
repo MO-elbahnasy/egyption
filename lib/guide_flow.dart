@@ -1,6 +1,6 @@
-import 'package:egyptifi/main_app_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:egyptifi/main_app_screen.dart'; // Ensure this import path is correct
 
 class BecomeGuideFlow extends StatefulWidget {
   const BecomeGuideFlow({super.key});
@@ -11,6 +11,7 @@ class BecomeGuideFlow extends StatefulWidget {
 
 class _BecomeGuideFlowState extends State<BecomeGuideFlow> {
   int _currentStep = 0;
+  final List<String> _selectedLanguages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,11 @@ class _BecomeGuideFlowState extends State<BecomeGuideFlow> {
         title: const Text('Egyptify - Become a Guide'),
       ),
       body: Theme(
-    data: Theme.of(context).copyWith(
-    colorScheme: ColorScheme.light(
-    primary: Color(0xFF46889A), )),// <-- Your custom color here
+        data: Theme.of(context).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: Color(0xFF46889A),
+          ),
+        ),
         child: Stepper(
           currentStep: _currentStep,
           onStepContinue: () {
@@ -30,7 +33,6 @@ class _BecomeGuideFlowState extends State<BecomeGuideFlow> {
                 _currentStep += 1;
               });
             } else {
-              // Complete the flow
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -177,10 +179,20 @@ class _BecomeGuideFlowState extends State<BecomeGuideFlow> {
           spacing: 8,
           runSpacing: 8,
           children: languages.map((language) {
+            final isSelected = _selectedLanguages.contains(language);
             return FilterChip(
               label: Text(language),
+              selected: isSelected,
+              selectedColor: Colors.blue.shade100,
+              checkmarkColor: Colors.blue,
               onSelected: (bool selected) {
-                // Handle language selection
+                setState(() {
+                  if (selected && _selectedLanguages.length < 5) {
+                    _selectedLanguages.add(language);
+                  } else if (!selected) {
+                    _selectedLanguages.remove(language);
+                  }
+                });
               },
             );
           }).toList(),

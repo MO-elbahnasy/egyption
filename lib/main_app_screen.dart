@@ -1,6 +1,7 @@
 import 'package:egyptifi/booking_screen.dart';
 import 'package:egyptifi/creation_flow.dart';
 import 'package:egyptifi/profile_screen.dart';
+import 'package:egyptifi/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -31,7 +32,11 @@ class _MainAppScreenState extends State<MainAppScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // Handle search
+              Navigator.push(context,
+               MaterialPageRoute(builder: (context) {
+                 return SearchScreen();
+               },)
+              );
             },
           ),
         ],
@@ -168,10 +173,7 @@ class ExploreScreen extends StatelessWidget {
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Search'),
-          ),
+
           const SizedBox(height: 20),
           const Padding(
             padding: EdgeInsets.all(16),

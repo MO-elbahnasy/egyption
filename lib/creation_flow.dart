@@ -9,6 +9,8 @@ class CreateExperienceFlow extends StatefulWidget {
 
 class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
   int _currentStep = 0;
+  final List<String> _selectedLanguages = [];
+  final List<String> _selectedFocuses = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +80,9 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
   }
 
   Widget _buildBasicDetailsStep() {
+    final languages = ['English', 'French', 'German', 'Italian'];
+    final focuses = ['Culture', 'History', 'Food', 'Adventure'];
+
     return Column(
       children: [
         const TextField(
@@ -99,27 +104,62 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         const Text('Which languages will you use in your experience?'),
         Wrap(
           spacing: 8,
-          children: ['English', 'French', 'German', 'Italian']
-              .map((lang) => FilterChip(
-            label: Text(lang),
-            onSelected: (selected) {},
-          ))
-              .toList(),
+          children: languages.map((lang) {
+            final isSelected = _selectedLanguages.contains(lang);
+            return FilterChip(
+              label: Text(lang),
+              selected: isSelected,
+              selectedColor: Colors.blue.shade100,
+              checkmarkColor: Colors.blue,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    _selectedLanguages.add(lang);
+                  } else {
+                    _selectedLanguages.remove(lang);
+                  }
+                });
+              },
+            );
+          }).toList(),
         ),
         TextButton(
-          onPressed: () {},
-          child: const Text('Select All'),
+          onPressed: () {
+            setState(() {
+              if (_selectedLanguages.length == languages.length) {
+                _selectedLanguages.clear();
+              } else {
+                _selectedLanguages.clear();
+                _selectedLanguages.addAll(languages);
+              }
+            });
+          },
+          child: Text(_selectedLanguages.length == languages.length
+              ? 'Deselect All'
+              : 'Select All'),
         ),
         const SizedBox(height: 20),
         const Text('What your Experience focus on?'),
         Wrap(
           spacing: 8,
-          children: ['Culture', 'History', 'Food', 'Adventure']
-              .map((focus) => FilterChip(
-            label: Text(focus),
-            onSelected: (selected) {},
-          ))
-              .toList(),
+          children: focuses.map((focus) {
+            final isSelected = _selectedFocuses.contains(focus);
+            return FilterChip(
+              label: Text(focus),
+              selected: isSelected,
+              selectedColor: Colors.green.shade100,
+              checkmarkColor: Colors.green,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    _selectedFocuses.add(focus);
+                  } else {
+                    _selectedFocuses.remove(focus);
+                  }
+                });
+              },
+            );
+          }).toList(),
         ),
         const SizedBox(height: 10),
         ElevatedButton(
@@ -238,8 +278,17 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         Wrap(
           spacing: 8,
           children: [
-            'Snacks', 'Appetizers', 'Breakfast', 'Launch', 'Dinner', 'Deserts',
-            'Tea', 'Water', 'Coffee', 'Soft drinks', 'other'
+            'Snacks',
+            'Appetizers',
+            'Breakfast',
+            'Launch',
+            'Dinner',
+            'Deserts',
+            'Tea',
+            'Water',
+            'Coffee',
+            'Soft drinks',
+            'other'
           ].map((item) => FilterChip(
             label: Text(item),
             onSelected: (selected) {},
@@ -286,7 +335,8 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         const TextField(
           decoration: InputDecoration(
             labelText: 'YOUR EXPERIENCE TITLE',
-            hintText: 'Effective names are clear, concise, and engaging. Keep them short, use lowercase except for the first letter, and aim for maximum clarity.',
+            hintText:
+            'Effective names are clear, concise, and engaging. Keep them short, use lowercase except for the first letter, and aim for maximum clarity.',
             border: OutlineInputBorder(),
           ),
         ),
