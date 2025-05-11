@@ -11,6 +11,48 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
   int _currentStep = 0;
   final List<String> _selectedLanguages = [];
   final List<String> _selectedFocuses = [];
+  final List<String> _selectedFoods = [];
+  final List<String> _selectedTransportFeatures = [];
+  bool _parentsCanBringKids = false;
+  bool _museumEntryTicketSelected = false;
+  bool _hashtagsCreated = false;
+  bool _photosAdded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // يمكنك تفعيل هذه السطر لاختيار كل العناصر تلقائياً عند البدء
+    // _selectAllAutomatically();
+  }
+
+  void _selectAllAutomatically() {
+    setState(() {
+      // اللغات
+      _selectedLanguages.addAll(['English', 'French', 'German', 'Italian']);
+
+      // الاهتمامات
+      _selectedFocuses.addAll(['Culture', 'History', 'Food', 'Adventure']);
+
+      // الطعام والشراب
+      _selectedFoods.addAll([
+        'Snacks', 'Appetizers', 'Breakfast', 'Launch',
+        'Dinner', 'Deserts', 'Tea', 'Water', 'Coffee', 'Soft drinks', 'other'
+      ]);
+
+      // وسائل المواصلات
+      _selectedTransportFeatures.addAll([
+        'Private Transport (Car, Motorcycling, etc)',
+        'Flying (Hotair Balloon, Parachut, etc)',
+        'Boating (Motorized boat, Felluca, etc)'
+      ]);
+
+      // الخيارات الأخرى
+      _parentsCanBringKids = true;
+      _museumEntryTicketSelected = true;
+      _hashtagsCreated = true;
+      _photosAdded = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +60,13 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
       appBar: AppBar(
         title: const Text('Create New Experience'),
       ),
-      body: Stepper(
+    body: Theme(
+    data: Theme.of(context).copyWith(
+    colorScheme: const ColorScheme.light(
+    primary: Color(0xFF46889A),
+    ),
+    ),
+      child: Stepper(
         currentStep: _currentStep,
         onStepContinue: () {
           if (_currentStep < 6) {
@@ -76,6 +124,7 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
           ),
         ],
       ),
+    ),
     );
   }
 
@@ -163,8 +212,20 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         ),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: () {},
-          child: const Text('Create Your Hashtags'),
+          onPressed: () {
+            setState(() {
+              _hashtagsCreated = !_hashtagsCreated;
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _hashtagsCreated ? Colors.green.shade100 : null,
+          ),
+          child: Text(
+            'Create Your Hashtags',
+            style: TextStyle(
+              color: _hashtagsCreated ? Colors.green : null,
+            ),
+          ),
         ),
         const SizedBox(height: 20),
         Text(
@@ -247,27 +308,39 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
   }
 
   Widget _buildWhatYouProvideStep() {
+    final transportFeatures = [
+      'Private Transport (Car, Motorcycling, etc)',
+      'Flying (Hotair Balloon, Parachut, etc)',
+      'Boating (Motorized boat, Felluca, etc)'
+    ];
+
+    final foods = [
+      'Snacks', 'Appetizers', 'Breakfast', 'Launch', 'Dinner', 'Deserts',
+      'Tea', 'Water', 'Coffee', 'Soft drinks', 'other'
+    ];
+
     return Column(
       children: [
         const Text(
           'Does your Trip involve one of the following features?',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        CheckboxListTile(
-          title: const Text('Private Transport (Car, Motorcycling, etc)'),
-          value: false,
-          onChanged: (value) {},
-        ),
-        CheckboxListTile(
-          title: const Text('Flying (Hotair Balloon, Parachut, etc)'),
-          value: false,
-          onChanged: (value) {},
-        ),
-        CheckboxListTile(
-          title: const Text('Boating (Motorized boat, Felluca, etc)'),
-          value: false,
-          onChanged: (value) {},
-        ),
+        ...transportFeatures.map((feature) {
+          final isSelected = _selectedTransportFeatures.contains(feature);
+          return CheckboxListTile(
+            title: Text(feature),
+            value: isSelected,
+            onChanged: (value) {
+              setState(() {
+                if (value == true) {
+                  _selectedTransportFeatures.add(feature);
+                } else {
+                  _selectedTransportFeatures.remove(feature);
+                }
+              });
+            },
+          );
+        }),
         const SizedBox(height: 20),
         const Text(
           'FOOD & DRINKS',
@@ -277,29 +350,41 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         const Text('Food that you will provides'),
         Wrap(
           spacing: 8,
-          children: [
-            'Snacks',
-            'Appetizers',
-            'Breakfast',
-            'Launch',
-            'Dinner',
-            'Deserts',
-            'Tea',
-            'Water',
-            'Coffee',
-            'Soft drinks',
-            'other'
-          ].map((item) => FilterChip(
-            label: Text(item),
-            onSelected: (selected) {},
-          )).toList(),
+          children: foods.map((item) {
+            final isSelected = _selectedFoods.contains(item);
+            return FilterChip(
+              label: Text(item),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    _selectedFoods.add(item);
+                  } else {
+                    _selectedFoods.remove(item);
+                  }
+                });
+              },
+            );
+          }).toList(),
         ),
         const SizedBox(height: 20),
         const Text('Write the tickets types that you will provide in the experience (Optional)'),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: () {},
-          child: const Text('Museum Entry Ticket'),
+          onPressed: () {
+            setState(() {
+              _museumEntryTicketSelected = !_museumEntryTicketSelected;
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _museumEntryTicketSelected ? Colors.blue.shade100 : null,
+          ),
+          child: Text(
+            'Museum Entry Ticket',
+            style: TextStyle(
+              color: _museumEntryTicketSelected ? Colors.blue : null,
+            ),
+          ),
         ),
         const SizedBox(height: 10),
         Text(
@@ -335,8 +420,7 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
         const TextField(
           decoration: InputDecoration(
             labelText: 'YOUR EXPERIENCE TITLE',
-            hintText:
-            'Effective names are clear, concise, and engaging. Keep them short, use lowercase except for the first letter, and aim for maximum clarity.',
+            hintText: 'Effective names are clear, concise, and engaging. Keep them short, use lowercase except for the first letter, and aim for maximum clarity.',
             border: OutlineInputBorder(),
           ),
         ),
@@ -381,10 +465,29 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
           children: List.generate(6, (index) {
             return Container(
               margin: const EdgeInsets.all(4),
-              color: Colors.grey[200],
-              child: const Icon(Icons.add_a_photo),
+              color: _photosAdded ? Colors.blue.shade100 : Colors.grey[200],
+              child: Icon(
+                Icons.add_a_photo,
+                color: _photosAdded ? Colors.blue : null,
+              ),
             );
           }),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _photosAdded = !_photosAdded;
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _photosAdded ? Colors.blue.shade100 : null,
+          ),
+          child: Text(
+            'Add Photos',
+            style: TextStyle(
+              color: _photosAdded ? Colors.blue : null,
+            ),
+          ),
         ),
         const SizedBox(height: 20),
         Text(
@@ -450,11 +553,14 @@ class _CreateExperienceFlowState extends State<CreateExperienceFlow> {
           ),
         ),
         const SizedBox(height: 10),
-        Row(
-          children: [
-            Checkbox(value: false, onChanged: (value) {}),
-            const Text('Parents can bring kids under 2 years'),
-          ],
+        CheckboxListTile(
+          title: const Text('Parents can bring kids under 2 years'),
+          value: _parentsCanBringKids,
+          onChanged: (value) {
+            setState(() {
+              _parentsCanBringKids = value ?? false;
+            });
+          },
         ),
         const SizedBox(height: 20),
         const Text(

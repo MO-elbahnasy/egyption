@@ -9,30 +9,30 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Egyptify',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[800],
-        iconTheme: const IconThemeData(color: Colors.white),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Center(
-              child: Text(
-                _getCurrentTime(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ],
+        // title: const Text(
+        //   'Egyptify',
+        //   style: TextStyle(
+        //     fontWeight: FontWeight.bold,
+        //     color: Colors.white,
+        //   ),
+        // ),
+        // centerTitle: true,
+        // backgroundColor: Colors.blue[800],
+        // iconTheme: const IconThemeData(color: Colors.blueAccent),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 16.0),
+        //     child: Center(
+        //       child: Text(
+        //         _getCurrentTime(),
+        //         style: const TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 16,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
       body: Center(
         child: Column(

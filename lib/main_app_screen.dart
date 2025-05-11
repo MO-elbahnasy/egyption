@@ -302,6 +302,7 @@ class ExperienceCard extends StatelessWidget {
                     Row(
                       children: [
                         const Icon(Icons.star, color: Colors.amber, size: 16),
+                        const Icon(Icons.favorite, color: Colors.red, size: 16),
                         Text(rating),
                       ],
                     ),

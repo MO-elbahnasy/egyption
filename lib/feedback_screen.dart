@@ -106,7 +106,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             return IconButton(
               icon: Icon(
                 index < rating ? Icons.star : Icons.star_border,
-                color: Colors.amber,
+                color: Colors.white10,
                 size: 30,
               ),
               onPressed: () => onRatingChanged(index + 1),
